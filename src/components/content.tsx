@@ -61,7 +61,7 @@ const Content = () => {
   const timeOptions = [
     { name: "Last 2 days", value: "2" },
     { name: "Last 30 days", value: "30" },
-    { name: "All Time", value: "all" },
+    { name: "All Time", value: "all" }
   ];
 
   return (
