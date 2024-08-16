@@ -2,7 +2,6 @@ export type WidgetType = {
   id: string;
   widgetName: string;
   widgetText: string;
-  //   date: string;
 };
 
 export type WidgetCategoryType = {
@@ -11,7 +10,7 @@ export type WidgetCategoryType = {
   Registry: WidgetType[];
 };
 
-export type CategoryType = "CSPM" | "CWPPA" | "Registry";
+export type CategoryType = "CSPM" | "CWPP" | "Registry";
 
 export type WidgetReducerType = WidgetType & { category: CategoryType };
 

@@ -47,10 +47,7 @@ const Content = () => {
           query === "" ||
           widget.widgetName.toLowerCase().includes(query.toLowerCase()); // Using includes for partial matches
 
-        const matchesTime =
-          timeFilter === "all" || new Date(widget.date) >= cutoffDate;
-
-        return matchesQuery && matchesTime;
+        return matchesQuery;
       });
 
       if (filteredWidgets.length > 0) {

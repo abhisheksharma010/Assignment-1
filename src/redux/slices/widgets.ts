@@ -24,7 +24,6 @@ export const widgetSlice = createSlice({
         id: action.payload.id,
         widgetName: action.payload.widgetName,
         widgetText: action.payload.widgetText,
-        date: action.payload.date,
       };
       state.widgets[action.payload.category].push(widget);
     },
