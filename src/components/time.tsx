@@ -17,9 +17,7 @@ const Time = () => {
   const dispatch = useDispatch();
 
   const options = [
-    { name: "Last 1 day", value: "1" },
-    { name: "Last 2 days", value: "2" },
-    { name: "Last 7 days", value: "7" },
+    { name: "Last 2 days", value: "2" }
     { name: "Last 30 days", value: "30" },
     { name: "All", value: "all" },
   ];

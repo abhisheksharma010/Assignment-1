@@ -9,34 +9,31 @@ import Offcanvas from "./offcanvas";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store/store";
 import { useMemo } from "react";
-import Time from "./time";
 import { updateWidgets } from "@/redux/slices/widgets";
-import { updateTimeFilter } from "@/redux/slices/filter";
 import { updateQuery } from "@/redux/slices/query";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { MdOutlineAccessTimeFilled as TimeIcon } from "react-icons/md";
 
 const Content = () => {
   const data = useSelector((state: RootState) => state.widgetReducer.widgets);
   const query = useSelector((state: RootState) => state.searchReducer.query);
-  const timeFilter = useSelector(
-    (state: RootState) => state.filterReducer.time
-  );
   const dispatch = useDispatch();
 
   // Reset the dashboard
   const onClickReset = () => {
     dispatch(updateWidgets(json_data));
-    dispatch(updateTimeFilter("all"));
     dispatch(updateQuery(""));
   };
 
-  // Filtering data based on query and time filter
+  // Filtering data based on query
   const filterData = () => {
-    if (query === "" && timeFilter === "all") return data;
-
-    const cutoffDate = new Date();
-    if (timeFilter !== "all") {
-      cutoffDate.setDate(cutoffDate.getDate() - parseInt(timeFilter));
-    }
+    if (query === "") return data;
 
     const newData: WidgetCategoryType = {} as WidgetCategoryType;
 
@@ -59,7 +56,13 @@ const Content = () => {
   };
 
   // Memoize the filtered data
-  const filteredData = useMemo(() => filterData(), [query, data, timeFilter]);
+  const filteredData = useMemo(() => filterData(), [query, data]);
+
+  const timeOptions = [
+    { name: "Last 2 days", value: "2" },
+    { name: "Last 30 days", value: "30" },
+    { name: "All Time", value: "all" },
+  ];
 
   return (
     <div className="h-[calc(100vh-50px)] bg-blue-300/10 overflow-y-scroll px-4 py-1 md:px-7 md:py-3 lg:px-10 lg:py-5">
@@ -73,7 +76,23 @@ const Content = () => {
           <Button variant="secondary" className="border">
             <MenuIcon className="inline-block text-lg" />
           </Button>
-          <Time />
+          <Select>
+            <SelectTrigger className="w-[150px] bg-neutral-100 border border-blue-900 text-blue-900 outline-none">
+              <TimeIcon className="text-lg text-blue-900" />
+              <SelectValue placeholder="All" className="text-blue-900" />
+            </SelectTrigger>
+            <SelectContent className="border border-blue-900 outline-none">
+              {timeOptions.map((option, index) => (
+                <SelectItem
+                  key={index}
+                  value={option.value}
+                  className="text-blue-900"
+                >
+                  {option.name}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
       </div>
       <div className="px-5">
